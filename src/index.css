@@ -1,0 +1,1046 @@
+/* ==========================================================================
+   GIMHANI'S PIXEL QUEST - RETRO RPG STYLING SYSTEM
+   Aesthetic: Cute Pink & Soft Peach, 8-bit RPG Borders, High Legibility
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. CORE VARIABLES & DESIGN TOKENS
+   -------------------------------------------------------------------------- */
+:root {
+  /* Pink RPG Palette */
+  --bg-main-light: hsl(340, 100%, 97%);
+  --bg-main-dark: hsl(340, 100%, 92%);
+  --bg-card: hsl(340, 100%, 98%);
+  --bg-terminal: hsl(340, 40%, 15%);
+  
+  /* High-contrast Readable Typography Colors */
+  --text-dark: #4a1220;         /* Deep Magenta Burgundy (Legible) */
+  --text-muted: #8c364e;        /* Mid Rose */
+  --text-light: hsl(340, 100%, 98%);
+  
+  /* System Accents */
+  --color-primary: hsl(340, 85%, 65%);     /* Vibrant Cherry Pink */
+  --color-primary-dark: #b82a4c;
+  --color-green: #2ecc71;
+  --color-yellow: #f1c40f;
+  --color-crimson: #e74c3c;
+  
+  /* Retro RPG Borders & Shadows */
+  --retro-border-color: #4a1220;
+  --retro-border: 4px solid var(--retro-border-color);
+  --retro-shadow: 6px 6px 0px rgba(74, 18, 32, 0.22);
+  --retro-shadow-solid: 6px 6px 0px var(--retro-border-color);
+  
+  /* Transitions */
+  --transition-pixel: step-end; /* Snappy 8-bit transition feel */
+}
+
+/* --------------------------------------------------------------------------
+   2. INITIAL SETTINGS & BASE ELEMENTS
+   -------------------------------------------------------------------------- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'VT323', monospace;
+  background: linear-gradient(135deg, var(--bg-main-light) 0%, var(--bg-main-dark) 100%);
+  color: var(--text-dark);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-x: hidden;
+  position: relative;
+  font-size: 1.65rem;
+  line-height: 1.35;
+  letter-spacing: 0.5px;
+}
+
+/* Custom Scrollbar for Retro feel */
+::-webkit-scrollbar {
+  width: 12px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-main-dark);
+  border-left: 4px solid var(--retro-border-color);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-primary);
+  border: 3px solid var(--bg-main-dark);
+}
+
+/* Custom Body Themes based on Movie Genre selection */
+body.theme-thriller {
+  --bg-main-light: hsl(346, 100%, 93%);
+  --bg-main-dark: hsl(346, 70%, 75%);
+  --color-primary: var(--color-crimson);
+  --retro-border-color: #4c1118;
+}
+
+body.theme-romance {
+  --bg-main-light: hsl(325, 100%, 94%);
+  --bg-main-dark: hsl(325, 75%, 78%);
+  --color-primary: hsl(325, 85%, 65%);
+  --retro-border-color: #4a0d2f;
+}
+
+body.theme-romcom {
+  --bg-main-light: hsl(20, 100%, 94%);
+  --bg-main-dark: hsl(20, 80%, 78%);
+  --color-primary: hsl(20, 85%, 60%);
+  --retro-border-color: #4d1c07;
+}
+
+/* --------------------------------------------------------------------------
+   3. RETRO FLOATING PIXEL SPRITES & LIGHTS
+   -------------------------------------------------------------------------- */
+.ambient-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* Floating Pixel Flowers */
+.ambient-container::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(var(--color-primary) 2px, transparent 2px),
+    radial-gradient(var(--color-primary) 2px, transparent 2px);
+  background-size: 32px 32px;
+  background-position: 0 0, 16px 16px;
+  opacity: 0.08;
+}
+
+.pixel-flower {
+  position: absolute;
+  font-size: 1.6rem;
+  opacity: 0.35;
+  animation: float-flower 14s infinite linear;
+  user-select: none;
+  pointer-events: none;
+}
+
+@keyframes float-flower {
+  0% {
+    transform: translateY(110vh) scale(0.8) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.35;
+  }
+  90% {
+    opacity: 0.35;
+  }
+  100% {
+    transform: translateY(-10vh) scale(1.2) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   4. FLOATING MUSIC WIDGET (RETRO ARCADE STYLE)
+   -------------------------------------------------------------------------- */
+.music-player-container {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  background: var(--bg-card);
+  border: var(--retro-border);
+  border-radius: 0px; /* Sharp retro corners */
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  box-shadow: 4px 4px 0px var(--retro-border-color);
+  z-index: 100;
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.1s step-end;
+}
+
+.music-player-container:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0px var(--retro-border-color);
+}
+
+.music-player-container:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0px var(--retro-border-color);
+}
+
+.music-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.music-title {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.62rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 2px;
+}
+
+.music-sub {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+}
+
+.music-btn {
+  background: var(--color-primary);
+  border: 2px solid var(--retro-border-color);
+  width: 32px;
+  height: 32px;
+  color: var(--text-light);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.audio-waves {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 16px;
+  width: 20px;
+}
+
+.audio-waves span {
+  display: block;
+  width: 3px;
+  background-color: var(--color-primary-dark);
+  height: 4px;
+}
+
+.music-player-container.playing .audio-waves span {
+  animation: bounce-wave-pixel 0.6s infinite steps(4) alternate;
+}
+
+.music-player-container.playing .audio-waves span:nth-child(2) { animation-delay: 0.15s; }
+.music-player-container.playing .audio-waves span:nth-child(3) { animation-delay: 0.3s; }
+
+@keyframes bounce-wave-pixel {
+  0% { height: 4px; }
+  100% { height: 16px; }
+}
+
+/* --------------------------------------------------------------------------
+   5. STEP CARD & APP LAYOUT
+   -------------------------------------------------------------------------- */
+.app-wrapper {
+  width: 100%;
+  max-width: 590px;
+  padding: 24px;
+  z-index: 10;
+}
+
+.step-card {
+  background: var(--bg-card);
+  border: var(--retro-border);
+  border-radius: 0px; /* Sharp retro elements */
+  padding: 36px;
+  box-shadow: var(--retro-shadow-solid);
+  position: relative;
+}
+
+/* Blinking flower in card corner */
+.step-card::before {
+  content: '🌸';
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  font-size: 1.25rem;
+  animation: blink 1.2s infinite steps(2);
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.step-card.wide-card {
+  max-width: 920px;
+  width: calc(100vw - 48px);
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* --------------------------------------------------------------------------
+   6. RPG DIALOG BOX COMPONENT STYLES
+   -------------------------------------------------------------------------- */
+
+/* Header elements */
+.card-header {
+  margin-bottom: 24px;
+  border-bottom: 4px dashed var(--retro-border-color);
+  padding-bottom: 16px;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.58rem;
+  font-weight: 700;
+  padding: 8px 12px;
+  border: 3px solid var(--retro-border-color);
+  border-radius: 0px;
+  margin-bottom: 16px;
+}
+
+.system-badge { background: #dff9fb; color: #130f40; }
+.warning-badge { background: #fdf1d6; color: #8a6d1c; }
+.appreciation-badge { background: #ebf5fb; color: #1f618d; }
+.proposal-badge { background: #fce4ec; color: #880e4f; }
+.movie-badge { background: #e8f8f5; color: #0e6251; }
+.calendar-badge { background: #eaf2f8; color: #1b4f72; }
+.success-badge { background: #e8f8f5; color: #196f3d; }
+
+.system-title, .section-title {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 1.05rem;
+  line-height: 1.4;
+  color: var(--text-dark);
+  margin-bottom: 10px;
+}
+
+.system-desc, .section-desc {
+  font-size: 1.45rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+/* Retro Command Logs (Camouflage intro) */
+.terminal-container {
+  background: var(--bg-terminal);
+  border: var(--retro-border);
+  border-radius: 0px;
+  font-family: 'VT323', monospace;
+  margin-bottom: 12px;
+}
+
+.terminal-header {
+  background: rgba(255,255,255,0.06);
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-bottom: 3px solid var(--retro-border-color);
+}
+
+.terminal-header .dot {
+  width: 12px;
+  height: 12px;
+  border: 2px solid var(--retro-border-color);
+}
+
+.terminal-header .dot.red { background: #e74c3c; }
+.terminal-header .dot.yellow { background: #f1c40f; }
+.terminal-header .dot.green { background: #2ecc71; }
+
+.terminal-title {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.58rem;
+  color: var(--bg-card);
+  margin-left: 8px;
+}
+
+.terminal-body {
+  padding: 16px;
+  font-size: 1.5rem;
+  line-height: 1.4;
+  min-height: 160px;
+  max-height: 220px;
+  overflow-y: auto;
+}
+
+.log-line {
+  margin-bottom: 8px;
+}
+
+.text-dim { color: hsl(340, 20%, 75%); }
+.text-green { color: #2ecc71; font-weight: bold; }
+.text-yellow { color: #f1c40f; }
+.text-highlight { color: var(--color-primary); font-weight: bold; }
+
+/* RPG Game Buttons */
+.btn {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.65rem;
+  padding: 14px 24px;
+  border-radius: 0px;
+  border: var(--retro-border);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  box-shadow: var(--retro-shadow-solid);
+  transform: translate(-3px, -3px);
+  transition: transform 0.1s step-end, box-shadow 0.1s step-end;
+}
+
+.btn-primary {
+  background: var(--color-primary);
+  color: var(--text-light);
+}
+
+.btn-primary:hover {
+  background: var(--color-primary-dark);
+}
+
+.btn-secondary {
+  background: #fcfcfc;
+  color: var(--text-dark);
+}
+
+.btn-secondary:hover {
+  background: #eaeaea;
+}
+
+.btn:active:not(:disabled) {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0px var(--retro-border-color);
+}
+
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: 2px 2px 0px var(--retro-border-color) !important;
+}
+
+/* Alignments */
+.card-footer {
+  margin-top: 24px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.buttons-horizontal {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  width: 100%;
+}
+
+.buttons-vertical {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+.buttons-vertical .btn {
+  width: 100%;
+}
+
+/* --------------------------------------------------------------------------
+   7. STEP 2: ARE YOU SINGLE? - HOPPING RETRO BUTTON
+   -------------------------------------------------------------------------- */
+.centered-content {
+  text-align: center;
+}
+
+.question-title {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+  line-height: 1.5;
+  color: var(--text-dark);
+}
+
+.question-sub {
+  font-size: 1.45rem;
+  color: var(--text-muted);
+  margin-bottom: 28px;
+}
+
+.buttons-container-flow {
+  position: relative;
+  min-height: 130px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+}
+
+/* Yes & No buttons styling */
+.btn-yes {
+  background: #e91e63;
+  color: var(--text-light);
+  min-width: 160px;
+}
+
+.btn-yes:hover {
+  background: #c2185b;
+}
+
+.btn-no {
+  background: #fcfcfc;
+  color: var(--text-muted);
+  min-width: 130px;
+  position: relative;
+  z-index: 10;
+  /* app.js controls transform, CSS handles boing animation */
+  will-change: transform;
+  transition: transform 0.42s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.2s step-end;
+}
+
+
+.toast-alert {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.52rem;
+  color: var(--color-primary-dark);
+  background: #fdf2f4;
+  border: 2px dashed var(--retro-border-color);
+  padding: 8px 12px;
+  height: fit-content;
+  margin-top: 24px;
+  line-height: 1.4;
+  opacity: 0;
+  transition: opacity 0.2s step-end;
+}
+
+.toast-alert.show {
+  opacity: 1;
+}
+
+/* --------------------------------------------------------------------------
+   8. STEP 3: APPRECIATION SCREEN
+   -------------------------------------------------------------------------- */
+.appreciation-text-box {
+  background: #fff;
+  border: var(--retro-border);
+  box-shadow: 4px 4px 0px rgba(0,0,0,0.1);
+  padding: 24px;
+  line-height: 1.45;
+  font-size: 1.55rem;
+  text-align: left;
+}
+
+.appreciation-text-box p {
+  margin-bottom: 16px;
+}
+
+.appreciation-text-box p:last-child {
+  margin-bottom: 0;
+}
+
+.appreciation-subtext {
+  color: var(--text-muted);
+  font-style: italic;
+  font-weight: 500;
+  border-top: 2px dashed rgba(0,0,0,0.1);
+  padding-top: 12px;
+}
+
+/* --------------------------------------------------------------------------
+   9. STEP 4: PROPOSAL GATEWAY
+   -------------------------------------------------------------------------- */
+.proposal-visual {
+  margin: 16px 0 28px;
+}
+
+.animated-icon {
+  font-size: 4.5rem;
+  color: var(--color-primary);
+  animation: retro-jump 1.2s infinite steps(4) alternate;
+}
+
+@keyframes retro-jump {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-16px); }
+}
+
+/* --------------------------------------------------------------------------
+   10. STEP 5: ARCADE MOVIE SELECTION GRID
+   -------------------------------------------------------------------------- */
+.movie-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 24px;
+  margin-top: 10px;
+}
+
+.movie-card {
+  background: var(--bg-card);
+  border: var(--retro-border);
+  box-shadow: var(--retro-shadow-solid);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  cursor: pointer;
+  text-align: left;
+  transform: translate(-3px, -3px);
+  transition: transform 0.1s step-end, box-shadow 0.1s step-end, background-color 0.1s;
+}
+
+.movie-card:hover {
+  transform: translate(-6px, -6px);
+  box-shadow: 8px 8px 0px var(--retro-border-color);
+  background-color: #fff;
+}
+
+.movie-card:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0px var(--retro-border-color);
+}
+
+/* Arcade Border Glows based on movie selection themes */
+.movie-card.thriller:hover {
+  background: hsl(346, 100%, 97%);
+}
+.movie-card.romance:hover {
+  background: hsl(325, 100%, 97%);
+}
+.movie-card.romcom:hover {
+  background: hsl(20, 100%, 97%);
+}
+
+.movie-badge-genre {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.48rem;
+  font-weight: 700;
+  padding: 4px 8px;
+  border: 2px solid var(--retro-border-color);
+  width: fit-content;
+  margin-bottom: 14px;
+}
+
+.thriller-label { background: #fce4ec; color: #c2185b; }
+.romance-label { background: #f3e5f5; color: #7b1fa2; }
+.romcom-label { background: #fff3e0; color: #e65100; }
+
+.jake-tag {
+  display: block;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.42rem;
+  font-weight: 700;
+  color: #856404;
+  background: #fff3cd;
+  border: 2px solid #856404;
+  padding: 4px 8px;
+  width: fit-content;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+}
+
+.movie-title {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  line-height: 1.4;
+  color: var(--text-dark);
+}
+
+.movie-cast {
+  font-size: 1.35rem;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+
+.movie-desc {
+  font-size: 1.4rem;
+  color: var(--text-dark);
+  line-height: 1.3;
+}
+
+/* --------------------------------------------------------------------------
+   11. STEP 6: DATE RETRO STAGE CALENDAR SELECTOR
+   -------------------------------------------------------------------------- */
+.calendar-wrapper {
+  background: #fff;
+  border: var(--retro-border);
+  box-shadow: 4px 4px 0px rgba(0,0,0,0.1);
+  padding: 20px;
+  max-width: 380px;
+  margin: 0 auto 20px;
+}
+
+.calendar-header-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  border-bottom: 2px dashed rgba(0,0,0,0.1);
+  padding-bottom: 10px;
+}
+
+.calendar-month-year {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.68rem;
+  font-weight: 700;
+}
+
+.cal-nav-btn {
+  background: var(--color-primary);
+  border: 2px solid var(--retro-border-color);
+  width: 32px;
+  height: 32px;
+  color: var(--text-light);
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cal-nav-btn:hover {
+  background: var(--color-primary-dark);
+}
+
+.calendar-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  font-family: 'Press Start 2P', monospace;
+  font-weight: 700;
+  font-size: 0.52rem;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+
+.calendar-days-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+  text-align: center;
+}
+
+.calendar-day {
+  font-size: 1.45rem;
+  font-weight: 700;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid transparent;
+  cursor: pointer;
+  user-select: none;
+}
+
+.calendar-day.empty {
+  cursor: default;
+  pointer-events: none;
+}
+
+.calendar-day.past {
+  color: var(--text-muted);
+  text-decoration: line-through;
+  opacity: 0.3;
+  cursor: default;
+  pointer-events: none;
+}
+
+.calendar-day:hover:not(.empty):not(.past):not(.selected) {
+  background: var(--bg-main-light);
+  border: 2px solid var(--retro-border-color);
+}
+
+.calendar-day.selected {
+  background: var(--color-primary);
+  color: var(--text-light);
+  font-weight: 700;
+  border: 2px solid var(--retro-border-color);
+  box-shadow: inset 3px 3px 0px rgba(0,0,0,0.15);
+}
+
+.selected-date-info {
+  text-align: center;
+  font-size: 1.55rem;
+  color: var(--text-dark);
+}
+
+/* --------------------------------------------------------------------------
+   12. STEP 7: RETRO VICTORY SCREEN
+   -------------------------------------------------------------------------- */
+.success-check-icon {
+  margin-bottom: 18px;
+  text-align: center;
+}
+
+.animated-pulse-icon {
+  font-size: 4.5rem;
+  color: var(--color-green);
+  animation: retro-pulse 1.5s infinite steps(2) alternate;
+}
+
+@keyframes retro-pulse {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.12); }
+}
+
+.success-subheading {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.85rem;
+  font-weight: 700;
+  margin-bottom: 24px;
+  text-align: center;
+  color: #27ae60;
+  letter-spacing: -0.5px;
+}
+
+.office-checklist {
+  background: #fff;
+  border: var(--retro-border);
+  padding: 20px;
+  margin-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  text-align: left;
+}
+
+.check-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 1.45rem;
+  font-weight: 600;
+}
+
+.check-item i {
+  font-size: 1.35rem;
+}
+
+.final-sarcastic-message {
+  line-height: 1.5;
+  font-size: 1.5rem;
+  color: var(--text-dark);
+  text-align: left;
+}
+
+.final-sarcastic-message p {
+  margin-bottom: 12px;
+}
+
+.final-highlight {
+  font-size: 1.55rem;
+  font-weight: 700;
+  background: #fff8f8;
+  border: var(--retro-border);
+  padding: 12px 16px;
+  margin-top: 14px;
+}
+
+.sarcastic-footnote {
+  font-style: italic;
+  font-size: 1.35rem;
+  color: var(--text-muted);
+  text-align: right;
+  margin-top: 16px;
+}
+
+.signature {
+  font-size: 1.3rem;
+  color: var(--text-muted);
+}
+
+.signature-name {
+  font-weight: 700;
+  color: var(--text-dark);
+}
+
+/* --------------------------------------------------------------------------
+   13. RETRO GENRE TRANSITION OVERLAYS (PIXEL SHADERS)
+   -------------------------------------------------------------------------- */
+.transition-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s step-end;
+}
+
+.transition-overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* Spooky Spiky Scanlines (Thriller Theme) */
+.transition-overlay.thriller-theme {
+  background: #110303;
+  border: 12px solid #c2185b;
+  box-shadow: inset 0 0 100px rgba(0,0,0,0.9);
+}
+.transition-overlay.thriller-theme .transition-title {
+  font-family: 'Press Start 2P', monospace;
+  color: #c2185b;
+  text-shadow: 4px 4px 0px #000;
+  font-size: 0.65rem;
+  letter-spacing: 1px;
+}
+.transition-overlay.thriller-theme .transition-spinner {
+  border: 4px solid #c2185b;
+  border-radius: 0px;
+}
+
+/* Sweet Pink Blossom Vignette (Romance Theme) */
+.transition-overlay.romance-theme {
+  background: #2d0a1b;
+  border: 12px solid var(--color-primary);
+}
+.transition-overlay.romance-theme .transition-title {
+  font-family: 'Press Start 2P', monospace;
+  color: var(--color-primary);
+  font-size: 0.62rem;
+  text-shadow: 4px 4px 0px #000;
+}
+.transition-overlay.romance-theme .transition-spinner {
+  border: 4px solid var(--color-primary);
+  border-radius: 0px;
+}
+
+/* Retro arcade screen burst (Romcom Theme) */
+.transition-overlay.romcom-theme {
+  background: #2a1506;
+  border: 12px solid hsl(20, 85%, 60%);
+}
+.transition-overlay.romcom-theme .transition-title {
+  font-family: 'Press Start 2P', monospace;
+  color: hsl(20, 85%, 60%);
+  font-size: 0.62rem;
+  text-shadow: 4px 4px 0px #000;
+}
+.transition-overlay.romcom-theme .transition-spinner {
+  border: 4px solid hsl(20, 85%, 60%);
+  border-radius: 0px;
+}
+
+.transition-content {
+  text-align: center;
+}
+
+.transition-spinner {
+  width: 48px;
+  height: 48px;
+  border: 4px solid #fff;
+  margin: 0 auto 24px;
+  animation: retro-spin 1.2s infinite steps(4);
+}
+
+.transition-title {
+  font-size: 1.40rem;
+  font-weight: 700;
+}
+
+@keyframes retro-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* --------------------------------------------------------------------------
+   14. MOBILE & RESPONSIVE ADAPTATIONS
+   -------------------------------------------------------------------------- */
+@media (max-width: 600px) {
+  body {
+    font-size: 1.5rem;
+  }
+  
+  .music-player-container {
+    top: auto;
+    bottom: 20px;
+    right: 20px;
+    padding: 6px 12px;
+  }
+  
+  .music-info {
+    display: none;
+  }
+  
+  .app-wrapper {
+    padding: 16px;
+  }
+  
+  .step-card {
+    padding: 28px 20px;
+  }
+  
+  .system-title, .section-title {
+    font-size: 0.88rem;
+  }
+  
+  .question-title {
+    font-size: 0.95rem;
+  }
+  
+  .movie-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .step-card.wide-card {
+    width: 100%;
+    left: 0;
+    transform: none;
+    animation: card-appear 0.5s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+  }
+  
+  .buttons-container-flow {
+    flex-direction: column;
+    min-height: 180px;
+    gap: 16px;
+  }
+  
+  .btn-no {
+    width: 100%;
+  }
+  
+  .btn-yes {
+    width: 100%;
+  }
+}
+
+/* Movie Card Cover Image styling */
+.movie-cover-wrapper {
+  width: 100%;
+  height: 180px;
+  overflow: hidden;
+  border: 4px solid var(--retro-border-color);
+  margin-bottom: 16px;
+  background: #000;
+  box-shadow: inset 3px 3px 0px rgba(0,0,0,0.15);
+}
+
+.movie-cover-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  transition: transform 0.1s step-end;
+}
+
+.movie-card:hover .movie-cover-img {
+  transform: scale(1.05);
+}
+

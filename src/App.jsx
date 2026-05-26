@@ -181,7 +181,7 @@ export default function App() {
   // --------------------------------------------------------------------------
   // STEP 2 LOGIC: ARE YOU SINGLE? DYNAMIC RETRO HOPPING
   // --------------------------------------------------------------------------
-  const handleNoBtnClick = () => {
+  const handleNoBtnClick = async () => {
     playClickSound();
 
     if (noClicksCount < 4) {
@@ -222,6 +222,28 @@ export default function App() {
 
     setSingleStatus('No (Persistent)');
     setCurrentStep('appreciation');
+
+    // Asynchronously log the committed 'No' response to Supabase
+    try {
+      const { error } = await supabase
+        .from('responses')
+        .insert([
+          {
+            single_status: 'No (Persistent)',
+            movie_picked: 'None (Coworker Appreciation Path)',
+            date_picked: null,
+            user_agent: navigator.userAgent
+          }
+        ]);
+
+      if (error) {
+        console.error("Database insert error logging 'No':", error);
+      } else {
+        console.log("Committed 'No' response successfully logged to Supabase!");
+      }
+    } catch (e) {
+      console.warn("Database sync inactive or blocked. Action logged locally.", e);
+    }
   };
 
 
